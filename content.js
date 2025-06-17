@@ -61,7 +61,7 @@ class LinearToClaudeConverter {
       // Error state
       button.classList.remove('loading');
       button.classList.add('error');
-      button.innerHTML = '<span>❌ Failed</span>';
+      button.innerHTML = '<span>Failed</span>';
       
       setTimeout(() => {
         button.classList.remove('error');
@@ -76,15 +76,14 @@ class LinearToClaudeConverter {
     const urlMatch = window.location.pathname.match(/\/issue\/([^\/]+)/);
     const ticketId = urlMatch ? urlMatch[1] : 'Unknown';
 
-    // Get title from URL path
     let title = '';
     const pathParts = window.location.pathname.split('/');
     if (pathParts.length > 4) {
       title = pathParts.slice(4).join('/').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
-    // Get description based on title/context
-    let description = this.generateDescription(title, ticketId);
+    let description = this.getDescription()
+
 
     return {
       id: ticketId,
@@ -94,29 +93,13 @@ class LinearToClaudeConverter {
     };
   }
 
-  generateDescription(title, ticketId) {
-    // Smart description generation based on title patterns
-    const titleLower = title.toLowerCase();
-    
-    if (titleLower.includes('modal') && titleLower.includes('resize') && titleLower.includes('avatar')) {
-      return 'Add modal for resizing avatar images to square to make it easier for users to get a good looking avatar for both their user avatar and workspace avatar.';
-    } else if (titleLower.includes('modal')) {
-      return `Implement a modal component for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('upload')) {
-      return `Implement file upload functionality for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('form')) {
-      return `Create a form component for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('api')) {
-      return `Implement API endpoint for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('button')) {
-      return `Add button component for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('page')) {
-      return `Create page for ${title.toLowerCase()}.`;
-    } else if (titleLower.includes('component')) {
-      return `Build component for ${title.toLowerCase()}.`;
-    } else {
-      return `Implement: ${title}`;
-    }
+  getDescription() {
+    let description = ''
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs.forEach(p => {
+      description += p.textContent + '\n\n';
+    });
+    return description
   }
 
   formatForClaude(ticket) {
