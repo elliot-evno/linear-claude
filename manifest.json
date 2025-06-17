@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Linear → Claude Code",
+  "version": "1.0",
+  "description": "Copy Linear tickets to Claude Code format",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://linear.app/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://linear.app/*/issue/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["claude.svg"],
+      "matches": ["https://linear.app/*"]
+    }
+  ]
+}
