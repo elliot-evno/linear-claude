@@ -24,7 +24,6 @@ class LinearToClaudeConverter {
     button.addEventListener('click', () => this.copyToClaudeCode());
 
     document.body.appendChild(button);
-    console.log('✅ Copy to Claude button injected');
   }
 
   async copyToClaudeCode() {
@@ -110,11 +109,14 @@ class LinearToClaudeConverter {
 **Description:**
 ${ticket.description}
 
-**Requirements:**
-- Analyze the requirements and implement the necessary code changes
-- Create appropriate files, tests, and documentation as needed
-- Follow existing code style and patterns
-- Ensure the implementation is clean, maintainable, and well-documented
+**Implementation Guidelines:**
+- Write minimal, high-quality code that maximizes functionality
+- Use existing libraries, frameworks, and patterns when possible
+- Focus on the core requirement - avoid over-engineering
+- Generate complete, working implementation in one go
+- Include only essential files needed for the feature
+- Prioritize clean, readable code over extensive comments
+- Use modern best practices and efficient patterns
 
 **Ticket URL:** ${ticket.url}`;
   }
